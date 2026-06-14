@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Manifest aplicat DOAR build-urilor de debug (assembleDebug).
+  Permite trafic HTTP necriptat către serverul de dezvoltare din rețeaua locală
+  (http://192.168.100.76:3000). Build-urile de release nu sunt afectate, deci
+  în producție vei folosi un URL HTTPS.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:usesCleartextTraffic="true"
+        tools:replace="android:usesCleartextTraffic" />
+</manifest>

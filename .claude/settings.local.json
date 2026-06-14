@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx prisma *)",
+      "PowerShell(Get-Process node -ErrorAction SilentlyContinue)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)"
+    ]
+  }
+}

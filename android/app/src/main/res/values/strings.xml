@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Organizator Sărbători</string>
+    <string name="title_activity_main">Organizator Sărbători</string>
+    <string name="package_name">md.familie.organizator</string>
+    <string name="custom_url_scheme">md.familie.organizator</string>
+</resources>
