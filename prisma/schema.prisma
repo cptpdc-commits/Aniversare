@@ -1,0 +1,202 @@
+// Organizator Sărbători în Familie — model de date
+// SQLite nu suportă enum-uri native; valorile posibile sunt documentate în comentarii.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Utilizator cu cont (autentificare email + parolă)
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  sessions    Session[]
+  memberships EventMember[]
+}
+
+// Sesiune de autentificare (token stocat în cookie httpOnly)
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// Legătura utilizator ↔ eveniment (owner sau editor)
+model EventMember {
+  id        String   @id @default(cuid())
+  role      String   @default("editor") // owner | editor
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([eventId, userId])
+  @@index([userId])
+  @@index([eventId])
+}
+
+// Invitație de colaborare la un eveniment (cod partajabil)
+model EventInvite {
+  id        String    @id @default(cuid())
+  code      String    @unique
+  role      String    @default("editor") // owner | editor
+  eventId   String
+  event     Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+
+  @@index([eventId])
+}
+
+// O sărbătoare (botez, aniversare, nuntă etc.)
+model Event {
+  id           String   @id @default(cuid())
+  name         String
+  type         String   @default("aniversare") // aniversare | nunta | botez | cumetrie | revelion | altul
+  date         DateTime?
+  description  String?
+  currency     String   @default("MDL") // valuta de operare: MDL | RON | EUR | USD | ...
+  totalBudget  Float    @default(0)
+  // Module opționale
+  musicEnabled Boolean  @default(false)
+  videoEnabled Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  members     EventMember[]
+  invites     EventInvite[]
+  organizers  Organizer[]
+  guests      Guest[]
+  gifts       Gift[]
+  menuItems   MenuItem[]
+  venue       Venue?
+  tasks       Task[]
+  budgetItems BudgetItem[]
+  vendors     Vendor[]
+}
+
+// Persoană care ajută la organizare (fără autentificare în MVP)
+model Organizer {
+  id      String  @id @default(cuid())
+  name    String
+  role    String? // ex: gazdă, coordonator, responsabil meniu
+  color   String  @default("#6366f1")
+  eventId String
+  event   Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+  gifts Gift[]
+
+  @@index([eventId])
+}
+
+model Guest {
+  id        String  @id @default(cuid())
+  name      String
+  contact   String? // telefon sau email
+  status    String  @default("in_asteptare") // in_asteptare | confirmat | refuzat
+  companions Int    @default(0) // persoane la masa adulților, în plus față de invitat (adulți + eventuali copii la masa adulților)
+  children  Int     @default(0) // copii la masa copiilor (meniu separat)
+  tableName String? // masa alocată
+  notes     String?
+  eventId   String
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([eventId])
+}
+
+model Gift {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  price       Float   @default(0)
+  status      String  @default("idee") // idee | rezervat | cumparat
+  link        String?
+  eventId     String
+  event       Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  organizerId String?
+  organizer   Organizer? @relation(fields: [organizerId], references: [id], onDelete: SetNull)
+
+  @@index([eventId])
+}
+
+model MenuItem {
+  id       String  @id @default(cuid())
+  name     String
+  category String  @default("fel_principal") // aperitiv | fel_principal | desert | bautura | altul
+  quantity String? // ex: "5 platouri", "20 porții"
+  cost     Float   @default(0)
+  notes    String?
+  eventId  String
+  event    Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}
+
+model Venue {
+  id       String  @id @default(cuid())
+  name     String
+  address  String?
+  capacity Int?
+  cost     Float   @default(0)
+  contact  String?
+  notes    String?
+  eventId  String  @unique
+  event    Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  stage       String   @default("planificare") // planificare | pregatire | ziua_evenimentului | dupa_eveniment
+  status      String   @default("de_facut") // de_facut | in_lucru | finalizat
+  dueDate     DateTime?
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  organizerId String?
+  organizer   Organizer? @relation(fields: [organizerId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+
+  @@index([eventId])
+}
+
+model BudgetItem {
+  id        String  @id @default(cuid())
+  label     String
+  stage     String  @default("sala") // sala | meniu | muzica | video | cadouri | decor | furnizori | altul
+  planned   Float   @default(0)
+  actual    Float   @default(0)
+  eventId   String
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}
+
+model Vendor {
+  id          String  @id @default(cuid())
+  name        String
+  service     String  @default("altul") // catering | muzica | video | foto | decor | transport | altul
+  contact     String?
+  status      String  @default("de_contactat") // de_contactat | in_negociere | confirmat | platit
+  cost        Float   @default(0)
+  notes       String?
+  eventId     String
+  event       Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}

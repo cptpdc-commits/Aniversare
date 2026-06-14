@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx prisma *)",
+      "PowerShell(Get-Process node -ErrorAction SilentlyContinue)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(Head -50)",
+      "PowerShell(Test-Path \"C:\\\\Program Files\\\\Android\\\\Android Studio\"; Test-Path \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\"; Get-Command git -ErrorAction SilentlyContinue)"
+    ]
+  }
+}
