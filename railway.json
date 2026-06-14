@@ -4,6 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
+    "preDeployCommand": "prisma migrate deploy",
     "startCommand": "npm start",
     "healthcheckPath": "/",
     "restartPolicyType": "ON_FAILURE"
