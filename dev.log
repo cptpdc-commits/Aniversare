@@ -1,0 +1,126 @@
+
+> organizator-sarbatori@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.19
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.100.54:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 5.9s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.7s (788 modules)
+ GET / 200 in 7778ms
+ GET / 200 in 873ms
+ ○ Compiling /eveniment/[id] ...
+ ✓ Compiled /eveniment/[id] in 2.4s (835 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3 200 in 5043ms
+ POST / 303 in 5436ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3 200 in 413ms
+ ○ Compiling /eveniment/[id]/sala ...
+ ✓ Compiled /eveniment/[id]/sala in 1262ms (837 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/sala 200 in 2926ms
+ ✓ Compiled in 514ms (329 modules)
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/sala 200 in 670ms
+ ✓ Compiled in 654ms (329 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/sala 200 in 857ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/sala 200 in 254ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/sala 200 in 222ms
+ ○ Compiling /eveniment/[id]/meniu ...
+ ✓ Compiled /eveniment/[id]/meniu in 1501ms (858 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/meniu 200 in 3172ms
+ ○ Compiling /eveniment/[id]/buget ...
+ ✓ Compiled /eveniment/[id]/buget in 995ms (865 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 2690ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3 200 in 215ms
+ ○ Compiling /eveniment/[id]/checklist ...
+ ✓ Compiled /eveniment/[id]/checklist in 1131ms (874 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 2729ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 768ms
+ ✓ Compiled in 708ms (337 modules)
+ ✓ Compiled in 806ms (337 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 857ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 196ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 648ms
+ ✓ Compiled in 820ms (337 modules)
+ ✓ Compiled in 524ms (337 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 543ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 200ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 675ms
+ ✓ Compiled in 513ms (337 modules)
+ ✓ Compiled in 509ms (337 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 584ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 234ms
+ ✓ Compiled in 847ms (337 modules)
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 1036ms
+ ✓ Compiled in 533ms (337 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 680ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 194ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3 200 in 228ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 188ms
+ ✓ Compiled in 915ms (337 modules)
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 1268ms
+ ✓ Compiled in 542ms (337 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 703ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 212ms
+ ✓ Compiled in 725ms (337 modules)
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 1221ms
+ ✓ Compiled in 550ms (337 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 745ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/checklist 200 in 224ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/sala 200 in 211ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 165ms
+ ○ Compiling /eveniment/[id]/furnizori ...
+ ✓ Compiled /eveniment/[id]/furnizori in 1465ms (869 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 3231ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 832ms
+ ✓ Compiled in 753ms (338 modules)
+ ✓ Compiled in 497ms (338 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 552ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 273ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 616ms
+ ✓ Compiled in 778ms (338 modules)
+ ✓ Compiled in 525ms (338 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 567ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/furnizori 200 in 174ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 178ms
+ ○ Compiling /eveniment/[id]/cadouri ...
+ ✓ Compiled /eveniment/[id]/cadouri in 1377ms (865 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 3142ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 781ms
+ ✓ Compiled in 576ms (338 modules)
+ ✓ Compiled in 486ms (338 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 543ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 206ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 435ms
+ ✓ Compiled in 843ms (338 modules)
+ ✓ Compiled in 531ms (338 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 581ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 174ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 648ms
+ ✓ Compiled in 959ms (338 modules)
+ ✓ Compiled in 494ms (338 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 528ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/cadouri 200 in 161ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 166ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 117ms
+ POST /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 1030ms
+ ✓ Compiled in 957ms (338 modules)
+ ✓ Compiled in 514ms (338 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 558ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/buget 200 in 224ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1548ms (544 modules)
+ GET / 200 in 3059ms
+ ○ Compiling /eveniment/[id] ...
+ ✓ Compiled /eveniment/[id] in 687ms (552 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3 200 in 1373ms
+ ○ Compiling /eveniment/[id]/setari ...
+ ✓ Compiled /eveniment/[id]/setari in 2.1s (896 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/setari 200 in 3877ms
+ ✓ Compiled in 1066ms (345 modules)
+ ✓ Compiled in 2.7s (345 modules)
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/setari 200 in 2717ms
+ GET /eveniment/cmqc4lppm0000v2m419ahzpe3/setari 200 in 221ms
+[?25h
