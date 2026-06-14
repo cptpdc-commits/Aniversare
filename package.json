@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:lan": "next dev -H 0.0.0.0 -p 3000",
-    "build": "next build",
-    "start": "next start",
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "start": "next start -H 0.0.0.0",
     "cap:sync": "npx cap sync android",
     "cap:open": "npx cap open android",
     "android:apk": "cd android && gradlew.bat assembleDebug",
