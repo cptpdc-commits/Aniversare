@@ -66,39 +66,31 @@ export default async function GuestsPage({ params }: { params: Promise<{ id: str
         }
       />
 
-      {/* Numărul de intrări (familii / invitați) pe status */}
-      <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat icon={<Users className="size-4" />} label={t.guests.total} value={guests.length} />
-        <Stat icon={<UserCheck className="size-4 text-emerald-500" />} label={t.guests.confirmed} value={confirmed.length} />
-        <Stat icon={<Clock className="size-4 text-amber-500" />} label={t.guests.pending} value={pending.length} />
-        <Stat icon={<UserX className="size-4 text-rose-500" />} label={t.guests.declined} value={declined.length} />
-      </div>
-
-      {/* Persoane confirmate (cu însoțitori și copii) */}
-      <div className="mb-6 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4">
-        <div className="mb-3 text-sm font-medium text-indigo-900">{t.guests.confirmedPeople}</div>
-        <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
-          <div>
-            <div className="text-3xl font-bold leading-none text-indigo-700">{confTotal}</div>
-            <div className="mt-1 text-xs text-slate-500">{t.common.total}</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="size-4 text-slate-400" />
-            <div>
-              <div className="text-xl font-semibold leading-none text-slate-800">{confAdults}</div>
-              <div className="mt-1 text-xs text-slate-500">{t.guests.adults}</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Baby className="size-4 text-slate-400" />
-            <div>
-              <div className="text-xl font-semibold leading-none text-slate-800">{confChildren}</div>
-              <div className="mt-1 text-xs text-slate-500">
-                {t.guests.childrenLabel} <span className="text-slate-400">· {t.guests.kidsTableShort}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Statistici unificate */}
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat
+          icon={<Users className="size-4 text-slate-400" />}
+          label={t.guests.total}
+          value={guests.length}
+          sub={`${t.guests.confirmed}: ${confirmed.length}`}
+        />
+        <Stat
+          icon={<UserCheck className="size-4 text-emerald-500" />}
+          label={t.guests.confirmedPeople}
+          value={confTotal}
+          sub={`${confAdults} ${t.guests.adults} · ${confChildren} ${t.guests.kidsTableShort}`}
+          highlight
+        />
+        <Stat
+          icon={<Clock className="size-4 text-amber-500" />}
+          label={t.guests.pending}
+          value={pending.length}
+        />
+        <Stat
+          icon={<UserX className="size-4 text-rose-500" />}
+          label={t.guests.declined}
+          value={declined.length}
+        />
       </div>
 
       {guests.length === 0 ? (
@@ -167,12 +159,19 @@ export default async function GuestsPage({ params }: { params: Promise<{ id: str
   );
 }
 
-function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+function Stat({ icon, label, value, sub, highlight }: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  sub?: string;
+  highlight?: boolean;
+}) {
   return (
-    <Card>
+    <Card className={highlight ? "border-indigo-200 bg-indigo-50/60" : ""}>
       <CardContent className="p-4">
         <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">{icon} {label}</div>
-        <div className="mt-1 text-2xl font-bold text-slate-900">{value}</div>
+        <div className={`mt-1 text-2xl font-bold ${highlight ? "text-indigo-700" : "text-slate-900"}`}>{value}</div>
+        {sub && <div className="mt-0.5 text-xs text-slate-400">{sub}</div>}
       </CardContent>
     </Card>
   );
