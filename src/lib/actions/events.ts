@@ -40,11 +40,13 @@ export async function createEvent(_prevState: unknown, formData: FormData) {
   const name = String(formData.get("name") || "").trim();
   if (!name) return null;
 
-  const eventCount = await prisma.eventMember.count({
-    where: { userId: user.id, role: "owner" },
-  });
-  if (eventCount >= FREE_EVENT_LIMIT) {
-    return { error: "Ai atins limita de 3 evenimente gratuite. Upgrade la Premium pentru evenimente nelimitate." };
+  if (!user.isPremium) {
+    const eventCount = await prisma.eventMember.count({
+      where: { userId: user.id, role: "owner" },
+    });
+    if (eventCount >= FREE_EVENT_LIMIT) {
+      return { error: "LIMIT_REACHED" };
+    }
   }
 
   const type = String(formData.get("type") || "aniversare");

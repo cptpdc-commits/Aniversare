@@ -17,6 +17,7 @@ import { EVENT_TYPES } from "@/lib/constants";
 import { createEvent } from "@/lib/actions/events";
 import { DICTIONARIES } from "@/lib/i18n/dictionaries";
 import { CURRENCY_SUGGESTIONS, type Locale } from "@/lib/i18n/config";
+import { UpgradeButton } from "@/components/billing/UpgradeButton";
 
 export function CreateEventDialog({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -35,11 +36,16 @@ export function CreateEventDialog({ locale }: { locale: Locale }) {
           <DialogTitle>{t.createEvent.title}</DialogTitle>
           <DialogDescription>{t.createEvent.desc}</DialogDescription>
         </DialogHeader>
-        {state?.error && (
+        {state?.error === "LIMIT_REACHED" ? (
+          <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4 text-sm text-indigo-800">
+            <p className="font-semibold mb-3">Ai atins limita de 3 evenimente gratuite.</p>
+            <UpgradeButton />
+          </div>
+        ) : state?.error ? (
           <div className="rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
             {state.error}
           </div>
-        )}
+        ) : null}
         <form action={action} className="grid gap-4">
           <div className="grid gap-1.5">
             <Label htmlFor="name">{t.createEvent.name} *</Label>
