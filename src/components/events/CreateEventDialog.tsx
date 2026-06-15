@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useActionState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +20,7 @@ import { CURRENCY_SUGGESTIONS, type Locale } from "@/lib/i18n/config";
 
 export function CreateEventDialog({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
+  const [state, action, pending] = useActionState(createEvent, null);
   const t = DICTIONARIES[locale];
 
   return (
@@ -33,7 +35,12 @@ export function CreateEventDialog({ locale }: { locale: Locale }) {
           <DialogTitle>{t.createEvent.title}</DialogTitle>
           <DialogDescription>{t.createEvent.desc}</DialogDescription>
         </DialogHeader>
-        <form action={createEvent} className="grid gap-4">
+        {state?.error && (
+          <div className="rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+            {state.error}
+          </div>
+        )}
+        <form action={action} className="grid gap-4">
           <div className="grid gap-1.5">
             <Label htmlFor="name">{t.createEvent.name} *</Label>
             <Input id="name" name="name" required placeholder={t.createEvent.namePlaceholder} />
@@ -81,7 +88,7 @@ export function CreateEventDialog({ locale }: { locale: Locale }) {
             <Textarea id="description" name="description" placeholder={t.createEvent.descriptionPlaceholder} />
           </div>
           <div className="flex justify-end gap-2 pt-2">
-            <Button type="submit">{t.createEvent.submit}</Button>
+            <Button type="submit" disabled={pending}>{t.createEvent.submit}</Button>
           </div>
         </form>
       </DialogContent>

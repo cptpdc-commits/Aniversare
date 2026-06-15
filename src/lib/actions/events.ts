@@ -33,10 +33,20 @@ export async function getEvent(id: string) {
   });
 }
 
-export async function createEvent(formData: FormData) {
+const FREE_EVENT_LIMIT = 3;
+
+export async function createEvent(_prevState: unknown, formData: FormData) {
   const user = await requireUser();
   const name = String(formData.get("name") || "").trim();
-  if (!name) return;
+  if (!name) return null;
+
+  const eventCount = await prisma.eventMember.count({
+    where: { userId: user.id, role: "owner" },
+  });
+  if (eventCount >= FREE_EVENT_LIMIT) {
+    return { error: "Ai atins limita de 3 evenimente gratuite. Upgrade la Premium pentru evenimente nelimitate." };
+  }
+
   const type = String(formData.get("type") || "aniversare");
   const dateRaw = String(formData.get("date") || "");
   const totalBudget = parseFloat(String(formData.get("totalBudget") || "0")) || 0;
