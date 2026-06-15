@@ -79,8 +79,9 @@ export default async function BudgetPage({ params }: { params: Promise<{ id: str
       />
 
       {/* Sumar */}
-      <div className="mb-6 grid gap-3 sm:grid-cols-3">
+      <div className="mb-6 grid gap-3 grid-cols-2 sm:grid-cols-4">
         <Summary icon={<Wallet className="size-4 text-indigo-500" />} label={t.budget.totalBudget} value={formatMoney(budget, cur)} />
+        <Summary icon={<TrendingUp className="size-4 text-blue-500" />} label="Planificat" value={formatMoney(totalPlanned, cur)} valueClass="text-blue-700" />
         <Summary icon={<TrendingDown className="size-4 text-amber-500" />} label={t.budget.spent} value={formatMoney(totalSpent, cur)} />
         <Summary
           icon={remaining >= 0 ? <TrendingUp className="size-4 text-emerald-500" /> : <TrendingDown className="size-4 text-rose-500" />}
