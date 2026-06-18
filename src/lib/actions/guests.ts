@@ -10,10 +10,11 @@ function rp(eventId: string) {
 
 export async function saveGuest(eventId: string, guestId: string | null, formData: FormData) {
   await requireEventAccess(eventId);
+  const status = String(formData.get("status") || "in_asteptare");
   const data = {
     name: String(formData.get("name") || "").trim(),
     contact: String(formData.get("contact") || "").trim() || null,
-    status: String(formData.get("status") || "in_asteptare"),
+    status,
     companions: parseInt(String(formData.get("companions") || "0")) || 0,
     children: parseInt(String(formData.get("children") || "0")) || 0,
     tableName: String(formData.get("tableName") || "").trim() || null,
@@ -22,16 +23,26 @@ export async function saveGuest(eventId: string, guestId: string | null, formDat
   if (!data.name) return;
 
   if (guestId) {
-    await prisma.guest.update({ where: { id: guestId }, data });
+    const existing = await prisma.guest.findUnique({ where: { id: guestId }, select: { status: true, confirmedAt: true } });
+    const confirmedAt =
+      status === "confirmat"
+        ? existing?.confirmedAt ?? new Date()
+        : null;
+    await prisma.guest.update({ where: { id: guestId }, data: { ...data, confirmedAt } });
   } else {
-    await prisma.guest.create({ data: { ...data, eventId } });
+    await prisma.guest.create({
+      data: { ...data, eventId, confirmedAt: status === "confirmat" ? new Date() : null },
+    });
   }
   rp(eventId);
 }
 
 export async function setGuestStatus(eventId: string, guestId: string, status: string) {
   await requireEventAccess(eventId);
-  await prisma.guest.update({ where: { id: guestId }, data: { status } });
+  await prisma.guest.update({
+    where: { id: guestId },
+    data: { status, confirmedAt: status === "confirmat" ? new Date() : null },
+  });
   rp(eventId);
 }
 

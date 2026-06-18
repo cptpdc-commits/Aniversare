@@ -114,9 +114,10 @@ model Guest {
   children  Int     @default(0) // copii la masa copiilor (meniu separat)
   tableName String? // masa alocată
   notes     String?
-  eventId   String
-  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  eventId     String
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  confirmedAt DateTime?
 
   @@index([eventId])
 }

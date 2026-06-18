@@ -32,12 +32,20 @@ export default async function GuestsPage({ params }: { params: Promise<{ id: str
     { name: "notes", label: t.guests.fNotes, type: "textarea", placeholder: t.guests.notesPlaceholder },
   ];
 
-  // Ordine pe status: confirmați întâi, apoi în așteptare, refuzații la final
-  // (în interiorul fiecărei grupe se păstrează ordinea adăugării).
+  // Confirmații: întâi după numărul mesei (numeric, fără masă la final), apoi după momentul confirmării.
   const STATUS_ORDER: Record<string, number> = { confirmat: 0, in_asteptare: 1, refuzat: 2 };
-  const guests = [...event.guests].sort(
-    (a, b) => (STATUS_ORDER[a.status] ?? 1) - (STATUS_ORDER[b.status] ?? 1)
-  );
+  // Extrage primul număr din tableName ("Masa 3", "3", "masa 10" → 3, 3, 10); fără număr → Infinity (la final)
+  const tableNum = (t: string | null) => { const m = (t ?? "").match(/\d+(\.\d+)?/); return m ? parseFloat(m[0]) : Infinity; };
+  const guests = [...event.guests].sort((a, b) => {
+    const statusDiff = (STATUS_ORDER[a.status] ?? 1) - (STATUS_ORDER[b.status] ?? 1);
+    if (statusDiff !== 0) return statusDiff;
+    if (a.status === "confirmat") {
+      const tableDiff = tableNum(a.tableName) - tableNum(b.tableName);
+      if (tableDiff !== 0) return tableDiff;
+      return (a.confirmedAt ?? a.createdAt).getTime() - (b.confirmedAt ?? b.createdAt).getTime();
+    }
+    return a.createdAt.getTime() - b.createdAt.getTime();
+  });
   const confirmed = guests.filter((g) => g.status === "confirmat");
   const pending = guests.filter((g) => g.status === "in_asteptare");
   const declined = guests.filter((g) => g.status === "refuzat");
